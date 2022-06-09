@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import { useAuth } from '../../hooks/auth'
 
 import { api } from '../../services/api'
-import avatarPlaceholder from '../../assets/avatar.svg.svg'
+import avatarPlaceholder from '../../assets/avatar_placeholder.svg'
 
 import {Input} from '../../components/Input'
 import {Button} from '../../components/Button'
@@ -25,11 +25,13 @@ export function Profile(){
   const [avatarFile, setAvatarFile] = useState(null)
 
   async function handleUpdate(){
-    const user = {
+    const updated = {
       name, email, password: passwordNew, old_password: passwordOld
     }
 
-    await updateProfile({user, avatarFile})
+    const userUpdated = Object.assign(user, updated)
+    
+    await updateProfile({user: userUpdated, avatarFile})
   }
 
   function handleChangeAvatar(event){
